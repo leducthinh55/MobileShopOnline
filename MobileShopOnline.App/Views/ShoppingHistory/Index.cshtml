@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MobileShopOnline.Models.ViewModel.ShoppingHistory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center" style="margin-bottom:20px">Shopping History</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalMoney)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeOrder)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MobileName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TotalMoney)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TimeOrder)
+    </td>
+</tr>
+}
+
+</table>

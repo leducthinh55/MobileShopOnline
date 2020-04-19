@@ -1,0 +1,22 @@
+﻿@model MobileShopOnline.Models.ViewModel.MobileViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-6">
+        <img src="~/Images/@Model.Image" width="300" height="200" /> <br/>
+        Name        : @Html.DisplayFor(model => model.Name)<br />
+        Category    : @Html.DisplayFor(model => model.CategoryName)<br />
+        Mobile Price: @Html.DisplayFor(model => model.Price)<br />
+        <div class="text-center">
+            @Html.ActionLink("Buy Right Now","AddToCart",new {controller="Cart",id = Model.MobileId,@class="btn btn-lg btn-warning"})
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <img src="~/Images/bannerRight.png" width="470" height="700" />
+    </div>
+</div>
+

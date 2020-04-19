@@ -1,0 +1,43 @@
+﻿@model PagedList.IPagedList<MobileShopOnline.Models.EF.Account>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@using PagedList.Mvc;
+<br />
+@if (TempData["ChangeStatus"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["ChangeStatus"]</div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Delete</th>
+            <th>Restore</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.Name</td>
+                <td>@item.Phone</td>
+                <td>@item.Status</td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { controller = "Account", email = item.Email })
+                </td>
+                <td>
+                    @Html.ActionLink("Restore", "Restore", new { controller = "Account", email = item.Email })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+

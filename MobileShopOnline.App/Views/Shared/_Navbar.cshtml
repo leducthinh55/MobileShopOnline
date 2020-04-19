@@ -1,0 +1,49 @@
+﻿@using MobileShopOnline.App.Common
+<div class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        @Html.ActionLink("MOBILE SHOP", "Index",new { controller = "Home"}, new { @class = "navbar-brand" })
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                @Html.ActionLink("Home", "Index", "Home")
+            </li>
+            @if (Session[Constants.USER_SESSION] == null)
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Login", "Login", "Login")
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Sign Up", "Create", "Account")
+                </li>
+            }
+
+            @if (Session[Constants.USER_SESSION] != null)
+            {
+                if (((AccountLogin)Session[Constants.USER_SESSION]).Role.Equals("client"))
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Cart", "Index", "Cart")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Shopping History", "Index", "ShoppingHistory")
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Account", "Edit", "Account")
+                    </li>
+                }
+                <li class="nav-item">
+                    @Html.ActionLink("Log out", "LogOut", "Logout")
+                </li>
+            }
+            <li class="nav-item">
+
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Cart Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using MobileShopOnline.Models.ViewModel
+@using MobileShopOnline.App.Common
+@if (Session[Constants.CART] == null)
+{
+    <h3 class="text-center">Your cart is empty!</h3>
+}
+else
+{
+    if (((Cart)Session[Constants.CART]).items != null)
+    {
+        <h3 style="text-align: center; color: red">@ViewBag.OutOfStock</h3>
+        <h3 style="text-align: center; color: red">@ViewBag.NotAvailable</h3>
+
+        using (Html.BeginForm("UpdateCart", "Cart", FormMethod.Post))
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Amount of money</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in ((Cart)Session[Constants.CART]).items)
+                    {
+                        <tr>
+                            <td>@item.Key.Name</td>
+                            <td>@item.Key.Image</td>
+                            <td>@item.Key.Price</td>
+                            <td><input type="number" name="quantityOfItem" value="@item.Value" min="1" max="100" required /></td>
+                            <td>@(item.Key.Price * item.Value)</td>
+                            <td>
+                                @Html.ActionLink("Delete", "RemoveItem", new { id = item.Key.MobileId })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            double? sum = 0;
+            foreach (var item in ((Cart)Session[Constants.CART]).items)
+            {
+                sum += item.Key.Price * item.Value;
+            }
+            <h3>Total of Money : @sum</h3>
+            <button type="submit" class="btn btn-warning">Update</button>
+        }
+        <a href="/Cart/CheckOut" class="btn btn-info">Check Out</a>
+    }
+}
+
+
+

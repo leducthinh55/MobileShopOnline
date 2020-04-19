@@ -1,0 +1,83 @@
+﻿@model IPagedList<MobileShopOnline.Models.ViewModel.MobileViewModel>
+@using PagedList
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@if (TempData["ChangeStatus"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["ChangeStatus"]</div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            MobileId
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Image
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            CategoryName
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            CreateTime
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="~/Images/@item.Image" width="100" height="60" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MobileId, page = Model.PageNumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MobileId, page = Model.PageNumber })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
